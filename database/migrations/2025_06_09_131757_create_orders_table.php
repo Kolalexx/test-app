@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->enum('status', ['new', 'completed'])->default('new');
             $table->text('comment')->nullable();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained('products');
             $table->integer('quantity')->default(1);
             $table->decimal('total_price', 10, 2);
             $table->timestamp('updated_at')->nullable();
