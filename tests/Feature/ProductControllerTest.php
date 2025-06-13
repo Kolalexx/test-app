@@ -87,6 +87,10 @@ class ProductControllerTest extends TestCase
     {
         $response = $this->delete("/products/{$this->product->id}");
         $response->assertRedirect('/products');
-        $this->assertDatabaseMissing('products', ['id' => $this->product->id]);
+        $this->assertDatabaseHas('products', [
+            'id' => $this->product->id,
+            'deleted_at' => now()
+        ]);
+        $this->assertTrue(Product::withTrashed()->find($this->product->id)->trashed());
     }
 }
