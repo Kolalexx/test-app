@@ -35,6 +35,10 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $order->load(['product' => function($query) {
+            $query->withTrashed();
+        }]);
+
         return view('orders.show', compact('order'));
     }
 

@@ -6,6 +6,12 @@
     <h1 class="mb-4">Заказ #{{ $order->id }}</h1>
     <div class="card">
         <div class="card-body">
+
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
             <p><strong>Покупатель:</strong> {{ $order->customer_name }}</p>
             <p><strong>Дата:</strong> {{ $order->created_at->format('d.m.Y H:i') }}</p>
             <p><strong>Статус:</strong>
@@ -13,9 +19,19 @@
                     {{ $order->status == 'new' ? 'Новый' : 'Выполнен' }}
                 </span>
             </p>
-            <p><strong>Товар:</strong> {{ $order->product->name }}</p>
+            @if($order->product)
+                <p><strong>Товар:</strong> {{ $order->product->name }}</p>
+                <p class="text-muted">
+                    @if($order->product->trashed())
+                        <span class="badge bg-danger">Товар удалён</span>
+                    @endif
+                </p>
+                <p><strong>Цена за единицу:</strong> {{ number_format($order->product->price, 2, '.', ' ') }} ₽</p>
+            @else
+                <p class="text-danger">Товар недоступен</p>
+            @endif
+
             <p><strong>Количество:</strong> {{ $order->quantity }}</p>
-            <p><strong>Цена за единицу:</strong> {{ number_format($order->product->price, 2, '.', ' ') }} ₽</p>
             <p><strong>Итоговая цена:</strong> {{ number_format($order->total_price, 2, '.', ' ') }} ₽</p>
             <p><strong>Комментарий:</strong> {{ $order->comment ?? '—' }}</p>
 
