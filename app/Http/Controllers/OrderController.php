@@ -29,9 +29,6 @@ class OrderController extends Controller
             'comment' => 'nullable|string',
         ]);
 
-        $product = Product::find($validated['product_id']);
-        $validated['total_price'] = $product->price * $validated['quantity'];
-
         Order::create($validated);
         return redirect()->route('orders.index')->with('success', 'Заказ создан!');
     }

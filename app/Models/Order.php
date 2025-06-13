@@ -27,4 +27,13 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($order) {
+            if (empty($order->total_price) && $order->product) {
+                $order->total_price = $order->product->price * $order->quantity;
+            }
+        });
+    }
 }
