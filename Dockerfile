@@ -7,23 +7,18 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     unzip \
     git \
-    && docker-php-ext-install \
-    pdo \
-    pdo_pgsql \
-    zip \
-    pcntl \
-    intl \
-    && pecl install redis \
-    && docker-php-ext-enable redis
+
+RUN docker-php-ext-install pdo pdo_pgsql zip pcntl intl && \
+    pecl install redis && \
+    docker-php-ext-enable redis
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
-    && npm install -g npm
-
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm
 
 WORKDIR /app
 
