@@ -3,20 +3,10 @@ FROM php:8.2-cli
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
-    libicu-dev \
-    zlib1g-dev \
     unzip \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+    git
 
-RUN docker-php-ext-install \
-    pdo \
-    pdo_pgsql \
-    zip \
-    pcntl \
-    intl \
-    && pecl install redis \
-    && docker-php-ext-enable redis
+RUN docker-php-ext-install pdo pdo_pgsql zip
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -29,7 +19,7 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
 WORKDIR /app
 
 COPY . .
-RUN composer install --ignore-platform-reqs
+RUN composer install --no-dev --optimize-autoloader
 RUN npm ci
 RUN npm run build
 
