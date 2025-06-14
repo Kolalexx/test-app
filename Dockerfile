@@ -11,7 +11,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get install -y nodejs  \
+    && npm install -g npm
 
 WORKDIR /app
 
