@@ -10,7 +10,7 @@ class OrderTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_order_total_calculation()
+    public function testOrderTotalCalculation()
     {
         $order = Order::factory()->create(['quantity' => 2]);
 

@@ -35,21 +35,21 @@ class OrderControllerTest extends TestCase
         ]);
     }
 
-    public function test_index()
+    public function testIndex()
     {
         $response = $this->get('/orders');
         $response->assertStatus(200)
             ->assertViewHas('orders');
     }
 
-    public function test_create()
+    public function testCreate()
     {
         $response = $this->get('/orders/create');
         $response->assertStatus(200)
             ->assertViewHas('products');
     }
 
-    public function test_store()
+    public function testStore()
     {
         $response = $this->post('/orders', [
             'customer_name' => 'Петр Петров',
@@ -62,14 +62,14 @@ class OrderControllerTest extends TestCase
         $this->assertDatabaseHas('orders', ['customer_name' => 'Петр Петров']);
     }
 
-    public function test_show()
+    public function testShow()
     {
         $response = $this->get("/orders/{$this->order->id}");
         $response->assertStatus(200)
             ->assertViewHas('order');
     }
 
-    public function test_complete()
+    public function testComplete()
     {
         $response = $this->patch("/orders/{$this->order->id}/complete");
         $response->assertRedirect();
