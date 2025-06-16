@@ -19,5 +19,17 @@
         @yield('content')
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @production
+        <script>
+            setInterval(() => {
+                fetch('/health', {
+                    credentials: 'same-origin',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                }).catch(e => console.debug('Keep-alive ping'));
+            }, 3 * 60 * 1000);
+        </script>
+    @endproduction
 </body>
 </html>

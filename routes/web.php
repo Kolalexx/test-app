@@ -11,4 +11,6 @@ Route::patch('/orders/{order}/complete', [OrderController::class, 'complete'])->
 
 Route::redirect('/', '/products');
 
-Auth::routes();
+Route::get('/health', function() {
+    return response()->json(['status' => 'ok']);
+});
