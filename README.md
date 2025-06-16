@@ -1,6 +1,6 @@
 # Laravel Product & Order Management System
 
-[![Live Demo](https://img.shields.io/badge/demo-live-green.svg)](http://www.ex.com)
+[![Live Demo](https://img.shields.io/badge/demo-live-green.svg)](https://test-app-web-service.onrender.com)
 
 A complete e-commerce management system built with Laravel for product and order management.
 
@@ -16,14 +16,14 @@ A complete e-commerce management system built with Laravel for product and order
 
 - PHP 8.0+
 - Composer
-- PostgreSQL/MySQL/SQLite
+- PostgreSQL/SQLite
 - Node.js (for frontend dependencies)
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Kolalexx/php-eloquent-blog.git
+git clone https://github.com/Kolalexx/test-app.git
 cd test-app
 ```
 
@@ -42,11 +42,11 @@ cp .env.example .env
 Edit .env file with your database credentials:
 
 ```ini
-DB_CONNECTION=mysql
+DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
+DB_PORT=5432
+DB_DATABASE=test_app
+DB_USERNAME={your_name}
 DB_PASSWORD=
 ```
 
@@ -59,7 +59,8 @@ php artisan key:generate
 5. Run migrations and seeders:
 
 ```bash
-php artisan migrate --seed
+php artisan migrate:fresh
+php artisan db:seed --class=CategoriesTableSeeder
 ```
 
 6. Build frontend assets:
@@ -83,9 +84,10 @@ Access the application at: http://localhost:8000
 To run tests with SQLite in-memory database:
 
 ```bash
+php artisan key:generate --env=testing
 php artisan test --env=testing
 ```
 
 ## Live Demo
 
-A working demo is available at: www.ex.com
+A working demo is available at: https://test-app-web-service.onrender.com
